@@ -1,0 +1,11 @@
+{
+	"ANG" : {
+		"analysis" : "http://mtdkp111:6970/analysis"
+	},
+	"IXO" : {
+		"analysis" : "http://mtdkp078:6970/analysis"
+	},
+	"AL" : {
+		"analysis" : "http://mtdkp078:6969/analysis"
+	}
+}
