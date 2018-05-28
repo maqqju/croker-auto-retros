@@ -32,52 +32,46 @@ fs.readFile("croker-retro-config.json","utf8",(err,data) => {
 
 	// create folder
 	fs.mkdirSync(folder);
-	
-	puppeteer.launch().then(browser => {
-		browser.newPage().then(page => {
-			page.setViewport({ width: 1920, height: 1080}).then(() => {
-				page.goto(configFile[key].analysis+"/traklog-track-the-stories").then(() => {
 
-					// get tracklog save to folder
-					page.screenshot({path : folder+"/traklog.png"}).then(() => {
-						console.log("Traklog saved");
-						browser.newPage().then(page => {
-							page.setViewport({ width: 1920, height: 1080}).then(() => {
-								page.goto(configFile[key].analysis+"/sprint-execution-diagram").then(() => {
-									page.waitFor(10000).then(() => {
-										// get sprint execution diagram save to folder
-										page.screenshot({path : folder+"/sprint-execution-diagram.png"}).then(() => {
-											console.log("Sprint Execution Diagram saved");
-											browser.newPage().then(page => {
-												page.setViewport({ width: 1920, height: 1080}).then(() => {
-													page.goto(configFile[key].analysis+"/sprint-execution-diagram?highlightWeekends=true").then(() => {
-														page.waitFor(10000).then(() => {
-															// get sprint exec diagram with highlighted weekends save to folder
-															page.screenshot({path : folder+"/sprint-execution-diagram-weekends.png"}).then(() => {
-																console.log("Sprint Execution Diagram with highlighted weekends saved");
-																browser.close();
-															});
-														});
-													});
-												});
-											});
-										});
-									});
-								});
-							});
-						});
-					});
-				});
-			});
-		});
-		//madonna madonna no - pyramid of doom
-	});
+	(async () => {
+		const browser = await puppeteer.launch();
+		const page = await browser.newPage();
+		await page.setViewport({ width: 1920, height: 1080});
+		await page.goto(configFile[key].analysis + "/traklog-track-the-stories");
+		await page.screenshot({path : folder+"/traklog.png"});
+		console.log("Traklog saved");
+		await browser.close();
+	})();
+
+	(async () => {
+		const browser = await puppeteer.launch();
+		const page = await browser.newPage();
+		await page.setViewport({ width: 1920, height: 1080});
+		await page.goto(configFile[key].analysis + "/sprint-execution-diagram");
+		await page.waitFor(5000);
+		await page.screenshot({path : folder+"/sprint-execution-diagram.png"});
+		console.log("Sprint Execution Diagram saved");	
+		await browser.close();	
+	})();
+
+	(async () => {
+		const browser = await puppeteer.launch();
+		const page = await browser.newPage();
+		await page.setViewport({ width: 1920, height: 1080});
+		await page.goto(configFile[key].analysis + "/sprint-execution-diagram?highlightWeekends=true");
+		await page.waitFor(5000);
+		await page.screenshot({path : folder+"/sprint-execution-diagram-weekends.png"});
+		console.log("Sprint Execution Diagram with highlighted weekends saved");
+		await browser.close();
+	})();
 
 	// get retro-Reveal.js template
 	fs.readFile("retro.tmpl","utf8", (err, src) => {
+		// process through handlebars for customization
 		var template = handlebars.compile(src);
 
 		var result = template({retroTitle : ARGUMENTS("title")});
+		// save as html file in filder
 		fs.writeFile(folder+"/retro.html", result, function(err) {
 		    if(err) {
 		        return console.log(err);
@@ -88,6 +82,3 @@ fs.readFile("croker-retro-config.json","utf8",(err,data) => {
 	})
 	
 });
-
-// process through mustache for customization
-// save as html file in filder
