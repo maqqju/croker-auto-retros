@@ -23,54 +23,47 @@ fs.readFile("croker-retro-config.json","utf8",(err,data) => {
 
 	var configFile = JSON.parse(data);
 
-	if (Object.keys(configFile).length === 0) {
-		return console.error("Can not load cretl-reporting-server without proper coker-retro-config.json. Please make sure you define [contexts].");
+	if (Object.keys(configFile).length === 0 || !configFile[ARGUMENTS("team")]) {
+		return console.error(`Can not load croker-retrospective without proper croker-retro-config.json. Please make sure you define team configuration for [${ARGUMENTS("team")}].`);
 	}
 
 	var key = ARGUMENTS("team") ? ARGUMENTS("team") : Object.keys(configFile)[0];
-	var folder = ARGUMENTS("folder") ? ARGUMENTS("folder")  : "croker-retro-"+Date.now();
+	var folder = ARGUMENTS("folder") ? ARGUMENTS("folder")  : ["croker-retro",key,Date.now()].join("-");
 
 	// create folder
 	fs.mkdirSync(folder);
 
-	(async () => {
-		const browser = await puppeteer.launch();
-		const page = await browser.newPage();
-		await page.setViewport({ width: 1920, height: 1080});
-		await page.goto(configFile[key].analysis + "/traklog-track-the-stories");
-		await page.screenshot({path : folder+"/traklog.png"});
-		console.log("Traklog saved");
-		await browser.close();
-	})();
+	if (configFile[key].slides) {
+		console.log("Slides ghandna kieku");
+		configFile[key].slides.map((slide) => {
+			return (async () => {
+				const browser = await puppeteer.launch();
+				const page = await browser.newPage();
+				await page.setViewport({ width: 1920, height: 1080});
+				await page.goto(slide.url);
+				if (slide.delay) {
+					await page.waitFor(slide.delay);
+				}
 
-	(async () => {
-		const browser = await puppeteer.launch();
-		const page = await browser.newPage();
-		await page.setViewport({ width: 1920, height: 1080});
-		await page.goto(configFile[key].analysis + "/sprint-execution-diagram");
-		await page.waitFor(5000);
-		await page.screenshot({path : folder+"/sprint-execution-diagram.png"});
-		console.log("Sprint Execution Diagram saved");	
-		await browser.close();	
-	})();
-
-	(async () => {
-		const browser = await puppeteer.launch();
-		const page = await browser.newPage();
-		await page.setViewport({ width: 1920, height: 1080});
-		await page.goto(configFile[key].analysis + "/sprint-execution-diagram?highlightWeekends=true");
-		await page.waitFor(5000);
-		await page.screenshot({path : folder+"/sprint-execution-diagram-weekends.png"});
-		console.log("Sprint Execution Diagram with highlighted weekends saved");
-		await browser.close();
-	})();
+				await page.screenshot({path : folder+"/"+slide.imageName});
+				console.log(`[${slide.imageName}] saved!`);
+				await browser.close();
+			})
+		}).forEach((saveImage) => {
+			saveImage();
+		});
+	}
 
 	// get retro-Reveal.js template
 	fs.readFile("retro.tmpl","utf8", (err, src) => {
 		// process through handlebars for customization
 		var template = handlebars.compile(src);
-
-		var result = template({retroTitle : ARGUMENTS("title")});
+		var retroData = {
+			retroTitle : ARGUMENTS("title") || "Retrospective Title", 
+			retroSubtitle : ARGUMENTS("subtitle") || "",
+			slides : configFile[key].slides ? new handlebars.SafeString(configFile[key].slides.map((slide) => `<section data-background-image=\"${slide.imageName}\"></section>`).join("\n")) : ""
+		}
+		var result = template(retroData);
 		// save as html file in filder
 		fs.writeFile(folder+"/retro.html", result, function(err) {
 		    if(err) {

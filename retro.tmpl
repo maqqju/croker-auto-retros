@@ -8,18 +8,25 @@
 <body>
 		<div class="reveal">
 			<div class="slides">
-				<section>{{retroTitle}}</section>
 				<section>
-					<section data-background-image="traklog.png"></section>
-					<section data-background-image="sprint-execution-diagram.png"></section>
-					<section data-background-image="sprint-execution-diagram-weekends.png"></section>
+					<h1>{{retroTitle}}</h1>
+					<strong>{{retroSubtitle}}</strong>
 				</section>
-				<section>POPCORN</section>
+				<section>
+					{{slides}}
+				</section>
+				<section>
+					<h2>POPCORN</h2>
+					<small>Problem solving</small>
+				</section>
 			</div>
 		</div>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/zoom-js/zoom.js"></script>
 		<script type="text/javascript">
-			Reveal.initialize();
+			document.addEventListener("DOMContentLoaded", function(event) {
+				Reveal.initialize();
+			});
 		</script>
 </body>
 </html>
