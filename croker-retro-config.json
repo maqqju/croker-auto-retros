@@ -1,6 +1,5 @@
 {
 	"ANG" : {
-		"analysis" : "http://mtdkp111:6970/analysis",
 		"slides" : [
 			{ "url" : "http://mtdkp111:6970/analysis/traklog-track-the-stories", "imageName" : "traklog.png" },
 			{ "url" : "http://mtdkp111:6970/analysis/sprint-execution-diagram", "imageName" : "sprint-execution-diagram.png", "delay" : 5000 },
@@ -8,7 +7,6 @@
 		]
 	},
 	"IXO" : {
-		"analysis" : "http://mtdkp078:6970/analysis",
 		"slides" : [
 			{ "url" : "http://mtdkp078:6970/analysis/traklog-track-the-stories", "imageName" : "traklog.png" },
 			{ "url" : "http://mtdkp078:6970/analysis/sprint-execution-diagram", "imageName" : "sprint-execution-diagram.png", "delay" : 5000 },
@@ -16,7 +14,6 @@
 		]
 	},
 	"AL" : {
-		"analysis" : "http://mtdkp078:6969/analysis",
 		"slides" : [
 			{ "url" : "http://mtdkp078:6969/analysis/traklog-track-the-stories", "imageName" : "traklog.png" },
 			{ "url" : "http://mtdkp078:6969/analysis/sprint-execution-diagram", "imageName" : "sprint-execution-diagram.png", "delay" : 5000 },

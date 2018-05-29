@@ -34,7 +34,6 @@ fs.readFile("croker-retro-config.json","utf8",(err,data) => {
 	fs.mkdirSync(folder);
 
 	if (configFile[key].slides) {
-		console.log("Slides ghandna kieku");
 		configFile[key].slides.map((slide) => {
 			return (async () => {
 				const browser = await puppeteer.launch();
@@ -61,7 +60,7 @@ fs.readFile("croker-retro-config.json","utf8",(err,data) => {
 		var retroData = {
 			retroTitle : ARGUMENTS("title") || "Retrospective Title", 
 			retroSubtitle : ARGUMENTS("subtitle") || "",
-			slides : configFile[key].slides ? new handlebars.SafeString(configFile[key].slides.map((slide) => `<section data-background-image=\"${slide.imageName}\"></section>`).join("\n")) : ""
+			dataSlides : configFile[key].slides ? new handlebars.SafeString(configFile[key].slides.map((slide) => `<section data-background-image=\"${slide.imageName}\"></section>`).join("\n")) : ""
 		}
 		var result = template(retroData);
 		// save as html file in filder
