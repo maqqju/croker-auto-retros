@@ -40,9 +40,20 @@ fs.readFile("croker-retro-config.json","utf8",(err,data) => {
 				const page = await browser.newPage();
 				await page.setViewport({ width: 1920, height: 1080});
 				await page.goto(slide.url);
+
+				if (slide.authentication) {
+					//Assuming that the entry is in base64 encoding (used in basic authentication)
+					//the format should be username:password once decoded
+					var authentication = Buffer.from(slide.authentication.basic,"base64").toString().split(":");
+					await page.type(slide.authentication.username, authentication[0]);
+					await page.type(slide.authentication.password, authentication[1]);
+					await page.click(slide.authentication.submit);
+				}
+
 				if (slide.delay) {
 					await page.waitFor(slide.delay);
 				}
+
 
 				await page.screenshot({path : folder+"/"+slide.imageName});
 				console.log(`[${slide.imageName}] saved!`);
