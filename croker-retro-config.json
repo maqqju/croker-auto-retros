@@ -14,8 +14,7 @@
 					"password" : "#login-form-password",
 					"submit" : "#login-form-submit"
 				}
-			},
-			{ "title" : "POPCORN", "comment" : "wohooo", "imageName" : "" }
+			}
 		]
 	},
 	"IXO" : {
@@ -34,8 +33,7 @@
 					"submit" : "#login-form-submit"
 				},
 				"title" : "WOW"
-			},
-			{ "title" : "POPCORN", "comment" : "wohooo", "imageName" : "" }
+			}
 		]
 	},
 	"AL" : {
@@ -53,8 +51,7 @@
 					"password" : "#login-form-password",
 					"submit" : "#login-form-submit"
 				}
-			},
-			{ "title" : "POPCORN", "comment" : "wohooo", "imageName" : "" }
+			}
 		]
 	},
 	"TST" : {

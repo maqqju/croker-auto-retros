@@ -48,6 +48,7 @@ function saveSlides(slideConfigurations, folder) {
 	})
 }
 
+var GENERAL_KEY = "GENERAL";
 var CONFIGURATIONS = ARGUMENTS("config") ? ARGUMENTS("config").split(",") : [];
 var TEAM = ARGUMENTS("team") ? ARGUMENTS("team") : Object.keys(configFile)[0];
 var FOLDER = ARGUMENTS("folder") ? ARGUMENTS("folder")  : ["croker-retro",TEAM,Date.now()].join("-");
@@ -55,8 +56,8 @@ var FOLDER = ARGUMENTS("folder") ? ARGUMENTS("folder")  : ["croker-retro",TEAM,D
 fs.mkdirSync(FOLDER);
 
 var allSlides = CONFIGURATIONS.map((fileName) => JSON.parse(fs.readFileSync(fileName,"utf8")))
-							  .filter((jsonConfig) => jsonConfig[TEAM])
-							  .map((jsonConfig) => jsonConfig[TEAM])
+							  .filter((jsonConfig) => jsonConfig[TEAM] || jsonConfig[GENERAL_KEY])
+							  .map((jsonConfig) => jsonConfig[TEAM] || jsonConfig[GENERAL_KEY])
 							  .map((jsonConfig) => jsonConfig.slides)
 							  .reduce((allSlides, slideConfig) => { return [].concat(allSlides, slideConfig)}, []);
 
