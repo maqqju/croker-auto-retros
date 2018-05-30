@@ -25,7 +25,7 @@ function saveSlides(slideConfigurations, folder) {
 	// get retro-Reveal.js template
 	fs.readFile("slide.tmpl","utf8", (templateError, templateSource) => {
 		var slideTemplate = handlebars.compile(templateSource);
-		var slides = slideConfigurations ? new handlebars.SafeString(slideConfigurations.map((slide) => slideTemplate({slideImage : slide.imageName, comment : slide.comment || "", title : slide.title || ""})).join("\n")) : "";
+		var slides = slideConfigurations ? new handlebars.SafeString(slideConfigurations.map((slide) => slideTemplate({slideImage : slide.imageName, externalUrl : slide.externalUrl || "", comment : slide.comment || "", title : slide.title || ""})).join("\n")) : "";
 
 		fs.readFile("retro.tmpl","utf8", (err, src) => {
 			// process through handlebars for customization
