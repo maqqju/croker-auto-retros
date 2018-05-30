@@ -14,7 +14,8 @@
 					"password" : "#login-form-password",
 					"submit" : "#login-form-submit"
 				}
-			}
+			},
+			{ "title" : "POPCORN", "comment" : "wohooo", "imageName" : "" }
 		]
 	},
 	"IXO" : {
@@ -31,8 +32,10 @@
 					"username" : "#login-form-username",
 					"password" : "#login-form-password",
 					"submit" : "#login-form-submit"
-				}
-			}
+				},
+				"title" : "WOW"
+			},
+			{ "title" : "POPCORN", "comment" : "wohooo", "imageName" : "" }
 		]
 	},
 	"AL" : {
@@ -50,7 +53,13 @@
 					"password" : "#login-form-password",
 					"submit" : "#login-form-submit"
 				}
-			}
+			},
+			{ "title" : "POPCORN", "comment" : "wohooo", "imageName" : "" }
+		]
+	},
+	"TST" : {
+		"slides" : [
+			{ "title" : "It's KPI Time!!!", "comment" : "olleh olleh", "url" : "http://mtdkp078:6969/analysis/traklog-track-the-stories", "imageName" : "traklog.png"}
 		]
 	}
 }
