@@ -1,0 +1,32 @@
+{
+	"TST1" : {
+		"slides" : [
+			{ "url" : "localhost:6970/analysis/traklog-track-the-stories", "imageName" : "traklog.png" },
+			{ "url" : "localhost:6970/analysis/sprint-execution-diagram", "imageName" : "sprint-execution-diagram.png", "delay" : 5000 },
+			{ "url" : "localhost:6970/analysis/sprint-execution-diagram?highlightWeekends=true", "imageName" : "sprint-execution-diagram-weekends.png", "delay" : 5000 },
+			{ 
+				"url" : "https://jira.link?view=reporting&chart=burndownChart", 
+				"imageName" : "burndown-chart.png", 
+				"delay" : "canvas.overlay", 
+				"authentication" : {
+					"basic" : "base64encodedusernameandpassword",
+					"username" : "#login-username-element-name",
+					"password" : "#login-password-element-name",
+					"submit" : "#login-button-element-name"
+				}
+			}
+		]
+	},
+	"TST2" : {
+		"slides" : [
+			{ "url" : "localhost:6970/analysis/traklog-track-the-stories", "imageName" : "traklog.png" },
+		]
+	},
+	"GENERAL" : {
+		"slides" : [
+			{
+				"title" : "One last slide"
+			}
+		]
+	}
+}
